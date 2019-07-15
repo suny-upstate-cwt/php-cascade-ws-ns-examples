@@ -2,7 +2,7 @@
 /* This program shows how to replace the data definition associated
 with a data definition block. In effect, the block will have a new
 data container, with no data inside. For data mapping, see
-https://github.com/wingmingchan/php-cascade-ws-ns-examples/tree/master/recipes/data_mapping
+https://github.com/suny-upstate-cwt/php-cascade-ws-ns-examples/tree/master/recipes/data_mapping
 */
 
 require_once( 'auth_tutorial7.php' );
