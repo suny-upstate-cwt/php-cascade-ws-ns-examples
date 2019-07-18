@@ -1,6 +1,6 @@
 <?php
 require_once( 'auth_REST_SOAP.php' );
-require_once( 'role_constants.php' );
+//require_once( 'role_constants.php' );
 
 use cascade_ws_AOHS      as aohs;
 use cascade_ws_constants as c;
@@ -11,11 +11,10 @@ use cascade_ws_exception as e;
 
 try
 {
-    $global_role = $cascade->getAsset( a\Role::TYPE, 270 );
+    $global_role = $admin->getAsset( a\Role::TYPE, 290 );
     $global_abilities = $global_role->getGlobalAbilities();
     $global_abilities->
         setAccessAllSites( true )->
-        // this one fails
         setAccessAudits( true )->
         setAccessConfiguration( true )->
         setAccessDefaultEditorConfiguration( true )->
@@ -23,7 +22,6 @@ try
         setAccessSecurityArea( true )->
         setAccessSiteManagement( true )->
         setBroadcastMessages( true )->
-        // this one fails
         setBypassAllPermissionsChecks( true )->
         setChangeIdentity( true )->
         setConfigureLogging( true )->
@@ -37,7 +35,6 @@ try
         setDeleteMemberGroups( true )->
         setDeleteUsersInMemberGroups( true )->
         setDiagnosticTests( true )->
-        // this one fails
         setEditAccessRights( true )->
         setEditAnyGroup( true )->
         setEditAnyUser( true )->
@@ -45,6 +42,7 @@ try
         setEditSystemPreferences( true )->
         setEditUsersInMemberGroups( true )->
         setForceLogout( true )->
+        setModifyDictionary( true )->
         setOptimizeDatabase( true )->
         setSearchingIndexing( true )->
         setSyncLdap( true )->
@@ -53,6 +51,9 @@ try
         setViewMemberGroups( true )->
         setViewSystemInfoAndLogs( true )->
         setViewUsersInMemberGroups( true );
+        
+    u\DebugUtility::dump( $global_abilities->toStdClass() );
+        
     $global_role->edit()->dump();
 
     u\DebugUtility::dumpRESTCommands( $service );    
