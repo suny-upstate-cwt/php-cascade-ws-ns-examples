@@ -27,20 +27,20 @@ try
     /*/
 outputs:
 
-Role type: site
 Role type: global
+Role type: site
 /Applications/MAMP/htdocs/rest_soap/01role/01get_role_type.php::26:
 
 array(2) {
   [0]=>
   array(1) {
     ["command"]=>
-    string(48) "https://mydomain.edu:1234/api/v1/read/role/230"
+    string(48) "https://mydomain.edu:1234/api/v1/read/role/10"
   }
   [1]=>
   array(1) {
     ["command"]=>
-    string(46) "https://mydomain.edu:1234/api/v1/read/role/10"
+    string(46) "https://mydomain.edu:1234/api/v1/read/role/230"
   }
 }
     /*/
