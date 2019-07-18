@@ -1,6 +1,7 @@
 <?php
 /*
 This program only works with REST.
+As of Cascade 8.13, the bugs existing in SOAP have not been fixed.
 */
 require_once( 'auth_REST_SOAP.php' );
 
@@ -13,7 +14,7 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site = $cascade->getSite( "about-test" )->dump();
+    $site = $admin->getSite( "cancer-test" )->dump();
     $asset_array = array( "page", "file" );
    
     $site->setNamingRuleAssets( $asset_array )->
@@ -23,8 +24,11 @@ try
     $site->removeNamingRuleAsset( "template" )->edit()->dump();
     
     $site->clearNamingRuleAssets()->edit()->dump();
-/*/
-/*/
+    
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {

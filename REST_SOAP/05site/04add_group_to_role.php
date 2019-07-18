@@ -10,13 +10,16 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site  = $cascade->getSite( "about-test" );
-    $group = $cascade->getAsset( a\Group::TYPE, "test-ws-group" );
-    $role  = $cascade->getAsset( a\Role::TYPE, 271 );
+    $site = $admin->getSite( "cancer-test" );
+    $group = $admin->getAsset( a\Group::TYPE, "test-ws-group" );
+    $role  = $admin->getAsset( a\Role::TYPE, 271 );
     
     $site->addGroupToRole( $role, $group )->edit()->dump();
     
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {

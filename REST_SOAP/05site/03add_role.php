@@ -10,11 +10,19 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_name = "about-test";
-    $cascade->getSite( $site_name )->addRole(
-        $cascade->getAsset( a\Role::TYPE, 271 ) )->edit()->dump();    
+    $site_name = "cancer-test-copy";
+    $site      = $admin->getSite( $site_name );
+    $rs        = $site->getRoleAssignments();
+    u\DebugUtility::dump( $rs );
+    echo count( $rs );
+    
+    $site->addRole(
+        $admin->getAsset( a\Role::TYPE, 271 ) )->edit()->dump();
 
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {

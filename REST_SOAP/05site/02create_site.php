@@ -10,24 +10,27 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_name = "about-test";
+    $site_name = "cancer-test-copy";
     
     try
     {
-        $site = $cascade->getSite( $site_name ); // inheritDataChecksEnabled
-        $cascade->deleteAsset( $site );
+        $site = $admin->getSite( $site_name )->dump(); // inheritDataChecksEnabled
+        $admin->deleteAsset( $site );
     }
     catch( e\NoSuchSiteException $e )
     {
-        // do nothing
+        //u\DebugUtility::dump( "No such site" );
     }
-    $cascade->createSite( 
+    
+    $admin->createSite( 
         $site_name,
         "http://www.upstate.edu",
         c\T::FIFTEEN )->dump();
-/*/
-/*/
-    u\DebugUtility::dumpRESTCommands( $service );
+    
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {
