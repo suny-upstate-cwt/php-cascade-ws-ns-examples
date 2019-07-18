@@ -19,7 +19,7 @@ try
 {
     $role_id = $global_role_id;
     //$role_id = $site_role_id;
-    $role    = $cascade->getRole( $role_id );
+    $role    = $admin->getRole( $role_id );
     
     if( $role->getRoleType() == "global" )
     {
