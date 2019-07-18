@@ -68,7 +68,10 @@ try
         setViewVersions( true );
     $site_role->edit()->dump();
 
-    u\DebugUtility::dumpRESTCommands( $service );    
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {

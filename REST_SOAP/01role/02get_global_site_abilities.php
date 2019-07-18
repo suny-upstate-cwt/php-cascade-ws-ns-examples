@@ -32,7 +32,11 @@ try
         
     echo $role->getRoleType(), BR;
     u\DebugUtility::dump( $abilities->toStdClass() );
-    u\DebugUtility::dumpRESTCommands( $service );
+    
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
     
 /*/
 outputs:

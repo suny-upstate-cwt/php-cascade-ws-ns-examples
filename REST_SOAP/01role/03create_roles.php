@@ -17,7 +17,10 @@ try
     $site_role = $admin->createRole( $new_site_role_name, a\Site::TYPE );
     $site_role->dump();
     
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {

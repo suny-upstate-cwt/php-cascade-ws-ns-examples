@@ -23,7 +23,11 @@ try
     $role = $admin->getRole( $site_role_id );
     echo "Role type: ", $role->getRoleType(), BR;
     
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
+    
     /*/
 outputs:
 
