@@ -11,16 +11,18 @@ use cascade_ws_exception as e;
 try
 {
     $parent_name = "Test Transport Container";
-    $parent_container = $cascade->getAsset(
+    $parent_container = $admin->getAsset(
         a\TransportContainer::TYPE, $parent_name, "_common" );
 
     $t_name = "Test FTP Transport";
-    $t      = $cascade->getFtpTransport( $parent_name . "/" . $t_name, "_common" );
+    $t      = $admin->getFtpTransport( $parent_name . "/" . $t_name, "_common" );
 
     if( isset( $t ) )
-        $cascade->deleteAsset( $t );
+    {
+        $admin->deleteAsset( $t );
+    }
         
-    $t = $cascade->createFtpTransport(
+    $t = $admin->createFtpTransport(
         $parent_container, $t_name, "server", "22", "user", "pw" );
     
     // change from SFTP to FTP
@@ -29,11 +31,12 @@ try
         "",       // mode
         "1234",   // password
         false
-    )->edit();
+    )->edit()->dump();
     
-    $t->dump();
-    
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {

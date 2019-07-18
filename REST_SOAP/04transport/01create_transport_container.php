@@ -10,18 +10,22 @@ use cascade_ws_exception as e;
 
 try
 {
-    $root_container = $cascade->getAsset( a\TransportContainer::TYPE, "/", "_common" );
+    $root_container = $admin->getAsset( a\TransportContainer::TYPE, "/", "_common" );
 
     $tc_name = "Test Transport Container";
-    $tc      = $cascade->getTransportContainer( $tc_name, "_common" );
+    $tc      = $admin->getTransportContainer( $tc_name, "_common" );
 
     if( isset( $tc ) )
-        $cascade->deleteAsset( $tc );
+    {
+        $admin->deleteAsset( $tc );
+    }
         
-    $tc = $cascade->createTransportContainer( $root_container, $tc_name );
-    $tc->dump();
+    $tc = $admin->createTransportContainer( $root_container, $tc_name )->dump();
     
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {
