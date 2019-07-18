@@ -11,23 +11,27 @@ use cascade_ws_exception as e;
 try
 {
     $user_name = "test-ws-user";
-    $user      = $cascade->getUser( $user_name );
-    $group     = $cascade->getAsset( a\Group::TYPE, "test-ws-group" );
-    $role      = $cascade->getAsset( a\Role::TYPE, 10 );
+    $user      = $admin->getUser( $user_name );
+    $group     = $admin->getAsset( a\Group::TYPE, "test-ws-group" );
+    $role      = $admin->getAsset( a\Role::TYPE, 10 );
 
     if( isset( $user ) )
     {
-        $cascade->deleteAsset( $user );
+        u\DebugUtility::out( "Deleting user" );
+        $admin->deleteAsset( $user );
     }
     else
     {
         echo "User does not exist", BR;
     }
     
-    $user = $cascade->createUser( $user_name, "password", $group, $role );
+    $user = $admin->createUser( $user_name, "password", $group, $role );
     $user->dump();
     
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {

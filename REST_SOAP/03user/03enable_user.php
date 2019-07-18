@@ -10,11 +10,13 @@ use cascade_ws_exception as e;
 
 try
 {
-    $user = $cascade->getAsset( a\User::TYPE, "test-ws-user" );
-    $user->enable()->edit();
-    $user->dump();
+    $admin->getAsset( a\User::TYPE, "test-ws-user" )->
+        enable()->edit()->dump();
     
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {
