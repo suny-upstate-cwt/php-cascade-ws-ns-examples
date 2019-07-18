@@ -10,21 +10,24 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_name = "about-test";
+    $site_name = "cancer-test";
     $ddc_name  = "Test DD Container";
-    $ddc = $cascade->getDataDefinitionContainer( $ddc_name, $site_name );
+    $ddc = $admin->getDataDefinitionContainer( $ddc_name, $site_name );
     
     if( isset( $ddc ) )
     {
-        $cascade->deleteAsset( $ddc );
+        $admin->deleteAsset( $ddc );
     }
     
-    $ddc = $cascade->createDataDefinitionContainer(
-        $cascade->getAsset( a\DataDefinitionContainer::TYPE, "/", $site_name ),
+    $ddc = $admin->createDataDefinitionContainer(
+        $admin->getAsset( a\DataDefinitionContainer::TYPE, "/", $site_name ),
         $ddc_name
     )->dump();
     
-    u\DebugUtility::dumpRESTCommands( $service );    
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {

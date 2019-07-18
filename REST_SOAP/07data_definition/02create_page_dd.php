@@ -10,15 +10,15 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_name = "about-test";
+    $site_name = "cancer-test";
     $ddc_name  = "Test DD Container";
     $dd_name   = "Page";
     
-    $dd = $cascade->getDataDefinition( "$ddc_name/$dd_name", $site_name );
+    $dd = $admin->getDataDefinition( "$ddc_name/$dd_name", $site_name );
     
     if( isset( $dd ) )
     {
-        $cascade->deleteAsset( $dd );
+        $admin->deleteAsset( $dd );
     }
     
         $xml = '
@@ -35,13 +35,16 @@ try
     </group>
 </system-data-structure>';
     
-    $dd = $cascade->createDataDefinition(
-        $cascade->getAsset( a\DataDefinitionContainer::TYPE, $ddc_name, $site_name ),
+    $dd = $admin->createDataDefinition(
+        $admin->getAsset( a\DataDefinitionContainer::TYPE, $ddc_name, $site_name ),
         $dd_name,
         $xml
     )->dump();
     
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {
