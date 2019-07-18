@@ -11,43 +11,48 @@ use cascade_ws_exception as e;
 try
 {
     $group_name = "test-ws-group";
-    $role_name  = "Test WS Site Role;Default";
-    $group      = $cascade->getGroup( $group_name );
+    // cannot deal with multiple roles because in WS, only one role is read
+    $role_name  = "Administrator"; // one global role only
+    $group      = $admin->getGroup( $group_name );
 
     if( isset( $group ) )
     {
-    	echo "Deleting group", BR;
-    	$user_names = explode( ";", $group->getUsers() );
-    	
-    	// remove all users first
-    	foreach( $user_names as $user_name )
-    	{
-    		if( $user_name != "" )
-    			$group->removeUserName( $user_name );
-    	}
-    	$group->edit();
-    	
-        $cascade->deleteAsset( $group );
+        echo "Deleting group", BR;
+        $user_names = explode( ";", $group->getUsers() );
+        
+        // remove all users first, or else the group cannot be deleted
+        foreach( $user_names as $user_name )
+        {
+            if( $user_name != "" )
+            {
+                $group->removeUserName( $user_name );
+            }
+        }
+        $group->edit();
+        $admin->deleteAsset( $group );
     }
 
-    $group = $cascade->createGroup( $group_name, $role_name );
+    $group = $admin->createGroup( $group_name, $role_name );
     
     // add the users back
     if( isset( $user_name ) )
     {
-    	foreach( $user_names as $user_name )
-    	{
-    		if( $user_name != "" )
-    			$group->addUserName( $user_name );
-    	}
-    	$group->edit();
+        foreach( $user_names as $user_name )
+        {
+            if( $user_name != "" )
+            {
+                $group->addUserName( $user_name );
+            }
+        }
+        $group->edit();
     }
     
-    // cannot deal with roles because in WS, only one role is read
+    $group->edit()->dump();
     
-    $group->dump();
-    
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {

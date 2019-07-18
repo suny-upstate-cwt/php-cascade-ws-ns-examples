@@ -10,10 +10,13 @@ use cascade_ws_exception as e;
 
 try
 {
-    $group = $cascade->getAsset( a\Group::TYPE, "test-ws-group" );
+    $group = $admin->getAsset( a\Group::TYPE, "test-ws-group" );
     $group->removeUserName( "wing" )->edit()->dump();
     
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {
