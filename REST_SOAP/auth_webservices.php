@@ -13,7 +13,7 @@ $url  = "$server/api/v1/";
 
 if( $soap )
 {
-	$url = "$server/ws/services/AssetOperationService?wsdl";
+    $url = "$server/ws/services/AssetOperationService?wsdl";
 }
 
 $username = "username";
@@ -21,13 +21,13 @@ $password = "password";
 
 if( $sandbox )
 {
-	$username = "username";
-	$password = "password";
+    $username = "username";
+    $password = "password";
 }
 
 try
 {
-	$service = aohs\ServiceFactory::getService( $type, $url, $username, $password );
+    $service = aohs\ServiceFactory::getService( $type, $url, $username, $password );
     $cascade = new a\Cascade( $service );
     $report  = new a\Report( $cascade );
     $eval    = new u\EvalUtility();
@@ -44,6 +44,6 @@ catch( \Exception $e )
 }
 catch( \Error $er )
 {
-	echo S_PRE . $er . E_PRE; 
+    echo S_PRE . $er . E_PRE; 
 }
 ?>
