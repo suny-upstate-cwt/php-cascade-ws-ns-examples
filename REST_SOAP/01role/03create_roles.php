@@ -11,13 +11,13 @@ use cascade_ws_exception as e;
 
 try
 {
-    $global_role = $cascade->createRole( $new_global_role_name, "global" );
+    $global_role = $admin->createRole( $new_global_role_name, "global" );
     $global_role->dump();
     
-    $site_role = $cascade->createRole( $new_site_role_name, a\Site::TYPE );
+    $site_role = $admin->createRole( $new_site_role_name, a\Site::TYPE );
     $site_role->dump();
     
-    u\DebugUtility::dumpRESTCommands( $service );    
+    u\DebugUtility::dumpRESTCommands( $service );
 }
 catch( \Exception $e ) 
 {
