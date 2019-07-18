@@ -1,13 +1,15 @@
 <?php
 // roles on sandbox
-if( $webapp )
+if( isset( $sandbox ) && $sandbox )
 {
-    $site_role_id   = 50;
-    $global_role_id = 30;
+    $global_role_id = 10;
+    $site_role_id   = 230;
 }
 // roles on production
 else
 {
+    $global_role_id = 10;
+    $site_role_id   = 50;
 }
 
 $new_global_role_name = "Test WS Global Role";

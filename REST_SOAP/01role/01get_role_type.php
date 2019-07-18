@@ -16,15 +16,38 @@ use cascade_ws_exception as e;
 try
 {
     // global
-    //$role = $cascade->getRole( $global_role_id );
-    $role = $cascade->getRole( 5 );
-    echo $role->getRoleType(), BR;
+    $role = $admin->getRole( $global_role_id );
+    echo "Role type: ", $role->getRoleType(), BR;
     
     // site
-    //$role = $cascade->getRole( $site_role_id );
-    //echo $role->getRoleType(), BR;
+    $role = $admin->getRole( $site_role_id );
+    echo "Role type: ", $role->getRoleType(), BR;
     
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
+    
+    /*/
+outputs:
+
+Role type: global
+Role type: site
+/Applications/MAMP/htdocs/rest_soap/01role/01get_role_type.php::26:
+
+array(2) {
+  [0]=>
+  array(1) {
+    ["command"]=>
+    string(48) "https://mydomain.edu:1234/api/v1/read/role/10"
+  }
+  [1]=>
+  array(1) {
+    ["command"]=>
+    string(46) "https://mydomain.edu:1234/api/v1/read/role/230"
+  }
+}
+    /*/
 }
 catch( \Exception $e ) 
 {

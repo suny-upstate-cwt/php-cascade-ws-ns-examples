@@ -1,6 +1,5 @@
 <?php
 require_once( 'auth_REST_SOAP.php' );
-require_once( 'role_constants.php' );
 
 use cascade_ws_AOHS      as aohs;
 use cascade_ws_constants as c;
@@ -11,7 +10,7 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_role = $cascade->getAsset( a\Role::TYPE, 271 );
+    $site_role = $admin->getAsset( a\Role::TYPE, 271 );
     $site_abilities = $site_role->getSiteAbilities();
     $site_abilities->
         setAccessAssetFactories( true )->
@@ -27,6 +26,7 @@ try
         setAccessPublishSets( true )->
         setAccessTransports( true )->
         setAccessWorkflowDefinitions( true )->
+        setAccessWorkflowEmails( true )->
         setActivateDeleteVersions( true )->
         setAlwaysAllowedToToggleDataChecks( true )->
         setAssignApproveWorkflowSteps( true )->
@@ -66,9 +66,12 @@ try
         setUploadImagesFromWysiwyg( true )->
         setViewPublishQueue( true )->
         setViewVersions( true );
-    $site_role->edit()->dumpJSON();
+    $site_role->edit()->dump();
 
-    u\DebugUtility::dumpRESTCommands( $service );    
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {
