@@ -10,23 +10,26 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_name = "about-test";
+    $site_name = "cancer-test";
     $msc_name  = "Test MS Container";
     $ms_name   = "Page";
     
-    $ms = $cascade->getMetadataSet( "$msc_name/$ms_name", $site_name );
+    $ms = $admin->getMetadataSet( "$msc_name/$ms_name", $site_name );
     
     if( isset( $ms ) )
     {
-        $cascade->deleteAsset( $ms );
+        $admin->deleteAsset( $ms );
     }
     
-    $ms = $cascade->createMetadataSet(
-        $cascade->getAsset( a\MetadataSetContainer::TYPE, $msc_name, $site_name ),
+    $ms = $admin->createMetadataSet(
+        $admin->getAsset( a\MetadataSetContainer::TYPE, $msc_name, $site_name ),
         $ms_name
     )->dump();
     
-    u\DebugUtility::dumpRESTCommands( $service );    
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {
