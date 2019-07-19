@@ -10,21 +10,26 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_name = "about-test";
+    $site_name          = "cancer-test";
     $parent_folder_path = "_cascade/template";
-    $parent_folder      = $cascade->getAsset(
+    $parent_folder      = $admin->getAsset(
         a\Folder::TYPE, $parent_folder_path, $site_name );
     $template_name      = "xml";
     $xml = '<system-region name="DEFAULT"/>';
         
-    $t = $cascade->getTemplate( "$parent_folder_path/$template_name", $site_name );
+    $t = $admin->getTemplate( "$parent_folder_path/$template_name", $site_name );
     
     if( isset( $t ) )
-        $cascade->deleteAsset( $t );
+    {
+        $admin->deleteAsset( $t );
+    }
         
-    $t = $cascade->createTemplate( $parent_folder, $template_name, $xml );
+    $t = $admin->createTemplate( $parent_folder, $template_name, $xml );
 
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {
