@@ -10,23 +10,26 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_name          = "about-test";
+    $site_name          = "cancer-test";
     $parent_folder_path = "_cascade/formats";
     $format_name        = "default";
     
-    $format = $cascade->getScriptFormat(
+    $format = $admin->getScriptFormat(
         "$parent_folder_path/$format_name", $site_name );
     
     if( isset( $format ) )
-        $cascade->deleteAsset( $format );
+        $admin->deleteAsset( $format );
         
-    $format = $cascade->createScriptFormat(
-        $cascade->getAsset( a\Folder::TYPE, $parent_folder_path, $site_name ),
+    $format = $admin->createScriptFormat(
+        $admin->getAsset( a\Folder::TYPE, $parent_folder_path, $site_name ),
         $format_name,
         "##"
     );
 
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {
