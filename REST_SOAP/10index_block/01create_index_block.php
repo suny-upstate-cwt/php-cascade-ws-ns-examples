@@ -10,18 +10,18 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_name          = "about-test";
+    $site_name          = "cancer-test";
     $parent_folder_path = "_cascade/blocks/index";
     $index_block_name   = "calling-page";
     
-    $block = $cascade->getIndexBlock(
+    $block = $admin->getIndexBlock(
         "$parent_folder_path/$index_block_name", $site_name );
     
     if( isset( $block ) )
-        $cascade->deleteAsset( $block );
+        $admin->deleteAsset( $block );
         
-    $block = $cascade->createIndexBlock(
-        $cascade->getAsset( a\Folder::TYPE, $parent_folder_path, $site_name ),
+    $block = $admin->createIndexBlock(
+        $admin->getAsset( a\Folder::TYPE, $parent_folder_path, $site_name ),
         $index_block_name,
         a\Folder::TYPE
     );
@@ -36,7 +36,10 @@ try
         setPageXML( c\T::RENDERCURRENTPAGEONLY )->
         setSortMethod( c\T::FOLDERORDER )->edit();
 
-    u\DebugUtility::dumpRESTCommands( $service );
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {
