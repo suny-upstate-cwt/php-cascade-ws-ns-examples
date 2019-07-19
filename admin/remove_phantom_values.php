@@ -1,4 +1,8 @@
 <?php
+/*
+This program can be used to remove phantom values in pages and data definition blocks within
+a site.
+*/
 require_once( 'auth_REST_SOAP.php' );
 
 use cascade_ws_AOHS      as aohs;
