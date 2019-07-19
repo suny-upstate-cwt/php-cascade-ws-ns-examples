@@ -1,4 +1,8 @@
 <?php
+/*
+This program can be used to report phantom nodes in pages and data definition blocks within
+a site.
+*/
 require_once( 'auth_REST_SOAP.php' );
 
 use cascade_ws_AOHS      as aohs;
@@ -8,7 +12,7 @@ use cascade_ws_property  as p;
 use cascade_ws_utility   as u;
 use cascade_ws_exception as e;
 
-$site_name = "hospital";
+$site_name = "cancer";
 
 $start_time = time();
 
