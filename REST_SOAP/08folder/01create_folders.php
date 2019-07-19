@@ -10,8 +10,8 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_name   = "about-test";
-    $root_folder = $cascade->getAsset( a\Folder::TYPE, "/", $site_name );
+    $site_name   = "cancer-test";
+    $root_folder = $admin->getAsset( a\Folder::TYPE, "/", $site_name );
     $root_folder->deleteAllChildren();
     
     $folder_paths = array(
@@ -28,15 +28,19 @@ try
     
     foreach( $folder_paths as $folder_path => $array )
     {
-        $parent = $cascade->getAsset( a\Folder::TYPE, $array[ 0 ], $site_name );
-        $cascade->createFolder(
+        $parent = $admin->getAsset( a\Folder::TYPE, $array[ 0 ], $site_name );
+        $admin->createFolder(
             $parent,
             $array[ 1 ],
             $site_name
         );
+        sleep( 1 );
     }
     
-    u\DebugUtility::dumpRESTCommands( $service );    
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {

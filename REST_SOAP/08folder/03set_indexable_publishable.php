@@ -10,17 +10,20 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_name = "about-test";
-    $cascade->getAsset( a\Folder::TYPE, "_cascade", $site_name )->
+    $site_name = "cancer-test";
+    $admin->getAsset( a\Folder::TYPE, "_cascade", $site_name )->
         setShouldBeIndexed( false )->
         setShouldBePublished( false )->
         edit();
-    $cascade->getAsset( a\Folder::TYPE, "_extra", $site_name )->
+    $admin->getAsset( a\Folder::TYPE, "_extra", $site_name )->
         setShouldBeIndexed( false )->
         setShouldBePublished( true )->
         edit();
     
-    u\DebugUtility::dumpRESTCommands( $service );    
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {

@@ -10,15 +10,15 @@ use cascade_ws_exception as e;
 
 try
 {
-    $site_name = "about-test";
-    $site      = $cascade->getSite( $site_name );
+    $site_name = "cancer-test";
+    $site      = $admin->getSite( $site_name );
     $msc_name  = "Test MS Container";
     $folder_ms_name = "Folder";
-    $folder_ms = $cascade->getMetadataSet( "$msc_name/$folder_ms_name", $site_name );
+    $folder_ms = $admin->getMetadataSet( "$msc_name/$folder_ms_name", $site_name );
     
     if( !isset( $folder_ms ) )
-        $folder_ms = $cascade->createMetadataSet(
-            $cascade->getAsset( a\MetadataSetContainer::TYPE, $msc_name, $site_name ),
+        $folder_ms = $admin->createMetadataSet(
+            $admin->getAsset( a\MetadataSetContainer::TYPE, $msc_name, $site_name ),
             $folder_ms_name
         );
 
@@ -29,7 +29,10 @@ try
         $params
     );
     
-    u\DebugUtility::dumpRESTCommands( $service );    
+    if( $service->isRest() )
+    {
+        u\DebugUtility::dumpRESTCommands( $service );
+    }
 }
 catch( \Exception $e ) 
 {
