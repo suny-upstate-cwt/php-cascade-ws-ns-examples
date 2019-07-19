@@ -22,7 +22,10 @@ try
         u\StringUtility::boolToString( $block->getStructuredData()->hasPhantomValues() )
     );
     
-    $block->removePhantomValues()->dump();
+    if( $block->getStructuredData()->hasPhantomValues() )
+    {
+        $block->removePhantomValues()->dump();
+    }
 }
 catch( \Exception $e ) 
 {
